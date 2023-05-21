@@ -15,7 +15,7 @@ endif()
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${OpenCV_INCLUDE_DIRS}) 
 
-add_executable (detector_server "detector_server.cpp" "detector_server.h" "utilities.cpp" "utilities.h" "box.cpp" "box.h")
+add_executable (detector_server "detector_server.cpp" "utilities.cpp" "utilities.h" "box.cpp" "box.h")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET detector_server PROPERTY CXX_STANDARD 20)
