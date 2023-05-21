@@ -8,8 +8,6 @@ The server utilizes multi-threading to handle multiple client connections concur
 
 <image src="/pictures/example.png" alt="example">
 
-
-## Table of Contents
 - [Installation](#installation)
   - [installation detector_server](#installation-detector_server)
   - [installation detector_client](#installation-detector_client)
