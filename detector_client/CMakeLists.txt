@@ -10,7 +10,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 
-add_executable (detector_client "detector_client.cpp" "detector_client.h")
+add_executable (detector_client "detector_client.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET detector_client PROPERTY CXX_STANDARD 20)
