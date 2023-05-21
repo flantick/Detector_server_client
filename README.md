@@ -14,8 +14,6 @@ The server utilizes multi-threading to handle multiple client connections concur
 - [Usage](#usage)
   - [Usage detector_server](#Usage-detector_server)
   - [Usage detector_client](#Usage-detector_server)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Installation
 1. Clone the repository: `git clone https://github.com/flantick/Detector_server_client.git`
