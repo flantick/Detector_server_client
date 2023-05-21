@@ -18,7 +18,7 @@ The server utilizes multi-threading to handle multiple client connections concur
 - [License](#license)
 
 ## Installation
-1. Clone the repository: `git clone https://github.com/your-username/project.git`
+1. Clone the repository: `git clone https://github.com/flantick/Detector_server_client.git`
 2. Install the dependencies:
    - **Boost library**: Download and extract Boost 1.82.0 from [Boost website](https://www.boost.org/users/history/version_1_82_0.html). Set the `BOOST_ROOT` environment variable to the Boost library directory.
    - **OpenCV**: Download and extract OpenCV from the [OpenCV website](https://opencv.org/releases/)). Set the `OPENCV_DIR` environment variable to the Boost library directory.
