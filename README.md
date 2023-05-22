@@ -6,7 +6,7 @@ processes them using a loaded object detection model, and sends back frame with 
 
 The server utilizes multi-threading to handle multiple client connections concurrently.
 
-<image src="/pictures/example.png" alt="example">
+<image src="/pictures/example.png" alt="example"><image>
 
 - [Installation](#installation)
   - [installation detector_server](#installation-detector_server)
@@ -38,10 +38,11 @@ The server utilizes multi-threading to handle multiple client connections concur
 
 ## Usage
 ### Usage-detector_server
-1. Run the server: `./detector_server <model_path> <ip> <port>`
+1. Run the server: `./detector_server <model_path> <ip> <port> [device]`
    - `model_path`: Path to the model.torchscript file.
    - `ip`: IP address to bind the server.
    - `port`: Port number to listen on.
+   - `device`: cpu or gpu (if gpu then model must be for gpu)
 2. Connect to the server using a client application.
 #### Example usage: 
 `./detector_server yolov8n.torchscript 192.168.0.100 5000`

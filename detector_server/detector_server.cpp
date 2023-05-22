@@ -10,9 +10,17 @@ using namespace std;
 
 
 void handleClient(tcp::socket socket,
-    const std::string& source
+    const std::string& modelPath,
+    const std::string& device_name
 ) {
-    torch::jit::script::Module model = torch::jit::load(source);
+    torch::jit::script::Module model = torch::jit::load(modelPath);
+
+    torch::Device device = torch::kCPU;
+    if (device_name == "gpu") {
+        device = torch::cuda::is_available() ? torch::kCUDA : torch::kCPU;
+        std::cout << (device.is_cuda() ? "Devise is gpu" : "Cuda not available on your system") << endl;
+    }
+    model.to(device);
     try {
         boost::asio::streambuf buf;
 
@@ -35,7 +43,7 @@ void handleClient(tcp::socket socket,
             }
 
             // Process the frame using the model
-            cv::Mat frame = detect(model, received_frame, 640);
+            cv::Mat frame = detect(model, received_frame, device, 640);
 
             // Encode the frame into a serialized buffer data
             std::vector<uchar> out_buffer;
@@ -59,14 +67,20 @@ void handleClient(tcp::socket socket,
 
 int main(int argc, char* argv[])
 {
-    if (argc != 4) {
-        std::cerr << "Usage: " << argv[0] << " <model_path> <ip> <port>" << std::endl;
+    if (argc < 4 || argc > 5) {
+        std::cerr << "Usage: " << argv[0] << " <model_path> <ip> <port> [device]" << std::endl;
         return 1;
     }
 
     std::string modelPath = argv[1];
     std::string ip = argv[2];
     int port = std::stoi(argv[3]);
+
+    std::string device_name = "cpu";
+    if (argc == 5) {
+       device_name = argv[4];
+    }
+    
 
     try {
         boost::asio::io_context io_context;
@@ -83,9 +97,8 @@ int main(int argc, char* argv[])
             acceptor.accept(socket);
 
             // Create a new thread to handle the client
-            threads.emplace_back(handleClient, std::move(socket), modelPath);
+            threads.emplace_back(handleClient, std::move(socket), modelPath, device_name);
         }
-
         // Wait for all threads to finish
         for (auto& thread : threads) {
             thread.join();

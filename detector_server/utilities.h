@@ -28,6 +28,7 @@ void highlightBoxes(cv::Mat& img, vector<Box>& boxes);
 cv::Mat detect(
     torch::jit::script::Module& model,
     cv::Mat img,
+    torch::Device& device,
     int imgMaxWidth
 );
 #endif

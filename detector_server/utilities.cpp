@@ -200,7 +200,7 @@ std::vector<Box> getBoxes(at::Tensor& outputs, float confThres = 0.25, float iou
 void highlightBoxes(cv::Mat& img, vector<Box>& boxes) {
 
     cv::Scalar rectColor(0, 192, 0);
-    unsigned short fontScale = 2, confPrecis = 2;
+    unsigned short fontScale = 1, confPrecis = 2;
 
     for (Box box : boxes) {
         std::stringstream ss;
@@ -223,9 +223,9 @@ void highlightBoxes(cv::Mat& img, vector<Box>& boxes) {
 cv::Mat detect(
     torch::jit::script::Module& model,
     cv::Mat img,
+    torch::Device& device,
     int imgMaxWidth
 ) {
-
     if (img.size[1] > imgMaxWidth)
         cv::resize(img, img, { imgMaxWidth, imgMaxWidth * img.size[0] / img.size[1] });
 
@@ -234,15 +234,13 @@ cv::Mat detect(
     cv::Mat imgNorm; imgCov.copyTo(imgNorm);
     cv::cvtColor(imgNorm, imgNorm, cv::COLOR_BGR2RGB);
     cv::normalize(imgNorm, imgNorm, 0.0, 1.0, cv::NORM_MINMAX, CV_32F);
-    vector<torch::jit::IValue> inputs = {
-        torch::from_blob(
-            imgNorm.data,
-            {640,640,3},
-            torch::kFloat32
-        ).permute({2,0,1}).unsqueeze(0)
-    };
-    at::Tensor outputs = model.forward(inputs).toTensor();
-
+    at::Tensor inputTensor = torch::from_blob(
+        imgNorm.data,
+        { 640, 640, 3 },
+        torch::kFloat32
+    ).permute({ 2, 0, 1 }).unsqueeze(0).to(device);
+    at::Tensor outputs = model.forward({ inputTensor }).toTensor();
+    outputs = outputs.to(torch::kCPU);
     vector<Box> boxes = getBoxes(outputs);
 
 
