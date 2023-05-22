@@ -45,7 +45,7 @@ The server utilizes multi-threading to handle multiple client connections concur
    - `device`: cpu or gpu (if gpu then model must be for gpu)
 2. Connect to the server using a client application.
 #### Example usage: 
-`./detector_server yolov8n.torchscript 192.168.0.100 5000`
+`./detector_server yolov8n_gpu.torchscript 192.168.0.100 5000 gpu`
 
 ### Usage-detector_client
 1. Run the client application: `./detector_client <server_ip> <server_port> <video_source> [output]`
