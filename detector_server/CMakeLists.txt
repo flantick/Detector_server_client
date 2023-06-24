@@ -21,7 +21,7 @@ if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET detector_server PROPERTY CXX_STANDARD 20)
 endif()
 
-target_link_libraries(detector_server ${Boost_LIBRARIES})
+target_link_libraries(detector_server ${Boost_LIBRARIES} pthread)
 target_link_libraries(detector_server ${OpenCV_LIBS})
 target_link_libraries(detector_server "${TORCH_LIBRARIES}") 
 
