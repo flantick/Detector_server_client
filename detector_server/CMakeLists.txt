@@ -2,7 +2,7 @@
 
 set(CMAKE_CXX_STANDARD 11)
 
-find_package(Boost 1.82.0 REQUIRED)
+find_package(Boost REQUIRED COMPONENTS system)
 
 find_package(OpenCV REQUIRED)
 
@@ -21,7 +21,7 @@ if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET detector_server PROPERTY CXX_STANDARD 20)
 endif()
 
-target_link_libraries(detector_server ${Boost_LIBRARIES})
+target_link_libraries(detector_server ${Boost_LIBRARIES} pthread)
 target_link_libraries(detector_server ${OpenCV_LIBS})
 target_link_libraries(detector_server "${TORCH_LIBRARIES}") 
 

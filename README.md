@@ -13,7 +13,8 @@ The server utilizes multi-threading to handle multiple client connections concur
   - [installation detector_client](#installation-detector_client)
 - [Usage](#usage)
   - [Usage detector_server](#Usage-detector_server)
-  - [Usage detector_client](#Usage-detector_server)
+  - [Usage detector_client](#Usage-detector_client)
+- [Get torchscript model](#Get-torchscript-model)
 
 ## Installation
 1. Clone the repository: `git clone https://github.com/flantick/Detector_server_client.git`
@@ -37,6 +38,7 @@ The server utilizes multi-threading to handle multiple client connections concur
    - `cmake --build .`
 
 ## Usage
+  
 ### Usage-detector_server
 1. Run the server: `./detector_server <model_path> <ip> <port> [device]`
    - `model_path`: Path to the model.torchscript file.
@@ -55,3 +57,11 @@ The server utilizes multi-threading to handle multiple client connections concur
    - `output`: Optional output file path to record the received frames.
 #### Example usage: 
 `./detector_client 192.168.0.100 5000 video.mp4 output.avi`
+
+## Get-torchscript-model
+```python
+from ultralytics import YOLO
+
+model = YOLO("yolov8s.pt")
+model.export(format='torchscript', device='0')  # 'cpu' for cpu or '0' for gpu
+```
