@@ -15,11 +15,11 @@ int main(int argc, char* argv[]) {
     std::string serverPort = argv[2];
     cv::String source = argv[3];
     cv::String output = " ";
-    bool record = FALSE;
+    bool record = false;
 
     if (argc == 5) {
         output = argv[4];
-        record = TRUE;
+        record = true;
         
     }
 
