@@ -47,7 +47,8 @@ The server utilizes multi-threading to handle multiple client connections concur
    - `device`: cpu or gpu (if gpu then model must be for gpu)
 2. Connect to the server using a client application.
 #### Example usage: 
-`./detector_server yolov8n_gpu.torchscript 192.168.0.100 5000 gpu`
+`./detector_server yolov8n_gpu.torchscript 192.168.0.100 5000 gpu`\
+or use [Docker](Docker/Docker_server) 
 
 ### Usage-detector_client
 1. Run the client application: `./detector_client <server_ip> <server_port> <video_source> [output]`
@@ -56,7 +57,8 @@ The server utilizes multi-threading to handle multiple client connections concur
    - `video_source`: Path or index of the video source (e.g., file path or camera index).
    - `output`: Optional output file path to record the received frames.
 #### Example usage: 
-`./detector_client 192.168.0.100 5000 video.mp4 output.avi`
+`./detector_client 192.168.0.100 5000 video.mp4 output.avi`\
+or use [Docker](Docker/Docker_client) 
 
 ## Get-torchscript-model
 ```python
